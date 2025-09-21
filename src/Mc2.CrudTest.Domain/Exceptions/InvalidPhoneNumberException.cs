@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mc2.CrudTest.Domain.Exceptions
+﻿namespace Mc2.CrudTest.Domain.Exceptions
 {
-    internal class InvalidPhoneNumberException
+    public class InvalidPhoneNumberException : Exception
     {
+        public InvalidPhoneNumberException(string phoneNumber)
+            : base($"Invalid phone number: {phoneNumber}")
+        {
+        }
     }
 }
