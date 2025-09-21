@@ -1,4 +1,5 @@
 ﻿using Mc2.CrudTest.Application.Common.Interfaces;
+using PhoneNumbers;
 
 namespace Mc2.CrudTest.Infrastructure.Services
 {
@@ -6,7 +7,19 @@ namespace Mc2.CrudTest.Infrastructure.Services
     {
         public bool IsValid(string phoneNumber)
         {
-            return !string.IsNullOrWhiteSpace(phoneNumber) && phoneNumber.StartsWith("+98");
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
+
+            try
+            {
+                var phoneNumberUtil = PhoneNumberUtil.GetInstance();
+                var parsedNumber = phoneNumberUtil.Parse(phoneNumber, null);
+                return phoneNumberUtil.IsValidNumber(parsedNumber);
+            }
+            catch (NumberParseException)
+            {
+                return false;
+            }
         }
     }
 }
