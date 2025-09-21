@@ -8,15 +8,17 @@ namespace Mc2.CrudTest.Application.Customers.Commands.CreateCustomer
     public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CustomerDto>
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IPhoneNumberValidator _phoneNumberValidator;
 
-        public CreateCustomerCommandHandler(ICustomerRepository customerRepository)
+        public CreateCustomerCommandHandler(ICustomerRepository customerRepository, IPhoneNumberValidator phoneNumberValidator)
         {
             _customerRepository = customerRepository;
+            _phoneNumberValidator = phoneNumberValidator;
         }
 
         public async Task<CustomerDto> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            if (!PhoneNumberIsValid(request.PhoneNumber))
+            if (!_phoneNumberValidator.IsValid(request.PhoneNumber))
                 throw new InvalidPhoneNumberException(request.PhoneNumber);
 
             var customer = new Customer
@@ -35,11 +37,6 @@ namespace Mc2.CrudTest.Application.Customers.Commands.CreateCustomer
             {
                 FirstName = customer.FirstName
             };
-        }
-
-        private bool PhoneNumberIsValid(string phone)
-        {
-            return !string.IsNullOrWhiteSpace(phone) && phone.StartsWith("+98");
         }
     }
 }

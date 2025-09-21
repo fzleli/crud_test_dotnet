@@ -13,7 +13,6 @@
 	<ItemGroup>
 		<Folder Include="Common\Behaviours\" />
 		<Folder Include="Common\Exceptions\" />
-		<Folder Include="Common\Interfaces\" />
 		<Folder Include="Common\Mappings\" />
 		<Folder Include="Customers\EventHandlers\" />
 		<Folder Include="Customers\Queries\GetCustomerById\" />

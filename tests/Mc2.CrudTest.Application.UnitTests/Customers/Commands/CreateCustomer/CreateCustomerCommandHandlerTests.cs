@@ -8,12 +8,14 @@ using Moq;
 public class CreateCustomerCommandHandlerTests
 {
     private readonly Mock<ICustomerRepository> _customerRepositoryMock;
+    private readonly Mock<IPhoneNumberValidator> _phoneValidatorMock;
     private readonly CreateCustomerCommandHandler _handler;
 
     public CreateCustomerCommandHandlerTests()
     {
         _customerRepositoryMock = new Mock<ICustomerRepository>();
-        _handler = new CreateCustomerCommandHandler(_customerRepositoryMock.Object);
+        _phoneValidatorMock = new Mock<IPhoneNumberValidator>();
+        _handler = new CreateCustomerCommandHandler(_customerRepositoryMock.Object, _phoneValidatorMock.Object);
     }
 
     [Fact]
@@ -30,6 +32,8 @@ public class CreateCustomerCommandHandlerTests
             BankAccountNumber = "IR820540102680020817909002"
         };
 
+        _phoneValidatorMock.Setup(v => v.IsValid(command.PhoneNumber)).Returns(true);
+
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
 
@@ -44,6 +48,8 @@ public class CreateCustomerCommandHandlerTests
     {
         // Arrange
         var command = new CreateCustomerCommand { PhoneNumber = "123" };
+
+        _phoneValidatorMock.Setup(v => v.IsValid(command.PhoneNumber)).Returns(false);
 
         // Act
         var func = async () => await _handler.Handle(command, CancellationToken.None);
