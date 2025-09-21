@@ -29,7 +29,7 @@ public class CreateCustomerCommandHandlerTests
             DateOfBirth = new DateTime(1990, 5, 12),
             PhoneNumber = "+989123456789",
             Email = "test@example.com",
-            BankAccountNumber = "IR820540102680020817909002"
+            BankAccountNumber = "8205401026800208"
         };
 
         _phoneValidatorMock.Setup(v => v.IsValid(command.PhoneNumber)).Returns(true);

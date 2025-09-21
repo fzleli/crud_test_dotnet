@@ -21,15 +21,7 @@ namespace Mc2.CrudTest.Application.Customers.Commands.CreateCustomer
             if (!_phoneNumberValidator.IsValid(request.PhoneNumber))
                 throw new InvalidPhoneNumberException(request.PhoneNumber);
 
-            var customer = new Customer
-            {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                DateOfBirth = request.DateOfBirth,
-                PhoneNumber = request.PhoneNumber,
-                Email = request.Email,
-                BankAccountNumber = request.BankAccountNumber
-            };
+            var customer = Customer.Create(request.FirstName, request.LastName, request.DateOfBirth, request.PhoneNumber, request.Email, request.BankAccountNumber);
 
             await _customerRepository.AddAsync(customer);
 
