@@ -22,6 +22,7 @@ namespace Mc2.CrudTest.Domain.UnitTests.Customers.ValueObjects
         [Theory]
         [InlineData("")]
         [InlineData("123")]
+        [InlineData("09123456789")]
         public void Create_ShouldThrowInvalidPhoneNumberException_WhenValueIsInvalid(string invalidValue)
         {
             // Act

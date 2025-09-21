@@ -16,7 +16,7 @@ namespace Mc2.CrudTest.Domain.ValueObjects
             if (string.IsNullOrWhiteSpace(value))
                 throw new InvalidPhoneNumberException(value);
 
-            if (value.Length < 10)
+            if (!value.StartsWith("+") || value.Length < 10)
                 throw new InvalidPhoneNumberException(value);
 
             return new PhoneNumber(value);
