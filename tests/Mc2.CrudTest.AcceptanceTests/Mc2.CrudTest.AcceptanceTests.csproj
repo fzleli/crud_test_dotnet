@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -17,6 +17,19 @@
         <PackageReference Include="nunit" Version="3.13.2" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
         <PackageReference Include="FluentAssertions" Version="6.2.0" />
+		<PackageReference Include="Moq" Version="4.20.69" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Drivers\" />
+      <Folder Include="Features\" />
+      <Folder Include="Hooks\" />
+      <Folder Include="Steps\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj" />
+      <ProjectReference Include="..\..\src\Mc2.CrudTest.Domain\Mc2.CrudTest.Domain.csproj" />
     </ItemGroup>
 
 </Project>
