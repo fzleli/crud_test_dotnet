@@ -16,7 +16,6 @@
 		<Folder Include="Common\Mappings\" />
 		<Folder Include="Customers\EventHandlers\" />
 		<Folder Include="Customers\Queries\GetCustomerById\" />
-		<Folder Include="Customers\Queries\GetAllCustomers\" />
 	</ItemGroup>
 
 	<ItemGroup>

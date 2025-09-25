@@ -1,9 +1,14 @@
-﻿using Mc2.CrudTest.Domain.Entities;
+﻿using Mc2.CrudTest.Domain.Common;
+using Mc2.CrudTest.Domain.Entities;
 
 namespace Mc2.CrudTest.Application.Common.Interfaces
 {
     public interface ICustomerRepository
     {
         Task AddAsync(Customer customer);
+        Task<Customer?> GetByIdAsync(Guid id);
+        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<bool> IsUniqueByNameAndBirthAsync(string firstName, string lastName, DateTime dateOfBirth);
+        Task<bool> IsEmailUniqueAsync(string email);
     }
 }
