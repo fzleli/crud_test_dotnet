@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{5D02
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mc2.CrudTest.Presentation", "Mc2.CrudTest.Presentation", "{B3A4041C-12F0-46C3-B007-8378A6B335EC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.CrudTest.Presentation.Server", "src\Mc2.CrudTest.Presentation\Mc2.CrudTest.Presentation.Server\Mc2.CrudTest.Presentation.Server.csproj", "{C6B63AFE-F38E-4E4B-8DF7-CE38F775FDD1}"
 EndProject
 Global
