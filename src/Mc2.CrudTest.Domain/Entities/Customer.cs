@@ -1,50 +1,36 @@
-﻿using Mc2.CrudTest.Domain.ValueObjects;
+﻿using Mc2.CrudTest.Domain.Common;
+using Mc2.CrudTest.Domain.Events;
+using Mc2.CrudTest.Domain.ValueObjects;
 
-namespace Mc2.CrudTest.Domain.Entities
+namespace Mc2.CrudTest.Domain.Entities;
+
+public class Customer : AggregateRoot<Guid>
 {
-    public class Customer
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public DateTime DateOfBirth { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; } 
+    public Email Email { get; private set; } 
+    public BankAccountNumber BankAccountNumber { get; private set; } 
+
+    private Customer() { } 
+
+    public static Customer Create(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public DateTime DateOfBirth { get; private set; }
-        public PhoneNumber PhoneNumber { get; private set; }
-        public Email Email { get; private set; }
-        public BankAccountNumber BankAccountNumber { get; private set; }
-
-        private Customer(
-            string firstName,
-            string lastName,
-            DateTime dateOfBirth,
-            PhoneNumber phoneNumber,
-            Email email,
-            BankAccountNumber bankAccountNumber)
+        var customer = new Customer
         {
-            FirstName = firstName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            BankAccountNumber = bankAccountNumber;
-        }
+            Id = Guid.NewGuid(),
+            FirstName = firstName,
+            LastName = lastName,
+            DateOfBirth = dateOfBirth.Date,
+            PhoneNumber = PhoneNumber.Create(phoneNumber),
+            Email = Email.Create(email),
+            BankAccountNumber = BankAccountNumber.Create(bankAccountNumber)
+        };
 
-        public static Customer Create(
-            string firstName,
-            string lastName,
-            DateTime dateOfBirth,
-            string phoneNumberValue,
-            string emailValue,
-            string bankAccountNumberValue)
-        {
-            var phoneNumber = PhoneNumber.Create(phoneNumberValue);
-            var email = Email.Create(emailValue);
-            var bankAccountNumber = BankAccountNumber.Create(bankAccountNumberValue);
+        customer.AddDomainEvent(new CustomerCreatedEvent(customer));
 
-            return new Customer(firstName, lastName, dateOfBirth, phoneNumber, email, bankAccountNumber);
-        }
-
-        public void UpdatePhoneNumber(string newPhoneNumberValue)
-        {
-            PhoneNumber = PhoneNumber.Create(newPhoneNumberValue);
-        }
+        return customer;
     }
+
 }
