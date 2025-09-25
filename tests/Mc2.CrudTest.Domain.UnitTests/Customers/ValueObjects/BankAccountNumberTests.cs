@@ -10,26 +10,27 @@ namespace Mc2.CrudTest.Domain.UnitTests.Customers.ValueObjects
         public void Create_ShouldReturnBankAccountNumber_WhenValueIsValid()
         {
             // Arrange
-            var value = "1234567890123456";
+            var value = "8205401026800208";
 
             // Act
-            var accountNumber = BankAccountNumber.Create(value);
+            var account = BankAccountNumber.Create(value);
 
             // Assert
-            accountNumber.Value.Should().Be(value);
+            account.Value.Should().Be(value);
         }
 
         [Theory]
         [InlineData("")]
-        [InlineData("12345")]
-        [InlineData("abcde12345")]
+        [InlineData("short123")]
+        [InlineData("invalid-char@")]
         public void Create_ShouldThrowInvalidBankAccountNumberException_WhenValueIsInvalid(string invalidValue)
         {
             // Act
             Action act = () => BankAccountNumber.Create(invalidValue);
 
             // Assert
-            act.Should().Throw<InvalidBankAccountNumberException>();
+            act.Should().Throw<InvalidBankAccountNumberException>()
+                .WithMessage($"The bank account number '{invalidValue}' is invalid.");
         }
     }
 }

@@ -29,7 +29,19 @@ namespace Mc2.CrudTest.Domain.UnitTests.Customers.ValueObjects
             Action act = () => Email.Create(invalidValue);
 
             // Assert
-            act.Should().Throw<InvalidEmailException>();
+            act.Should().Throw<InvalidEmailException>()
+                .WithMessage($"The email '{invalidValue}' is invalid.");
+        }
+
+        [Fact]
+        public void Equals_ShouldReturnTrue_WhenEmailsAreSame()
+        {
+            // Arrange & Act 
+            var email1 = Email.Create("test@example.com");
+            var email2 = Email.Create("test@example.com");
+
+            // Assert
+            email1.Should().Be(email2);
         }
     }
 }

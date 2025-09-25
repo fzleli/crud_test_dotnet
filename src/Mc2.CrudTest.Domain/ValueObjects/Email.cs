@@ -1,16 +1,14 @@
-﻿using Mc2.CrudTest.Domain.Exceptions;
+﻿using Mc2.CrudTest.Domain.Common;
+using Mc2.CrudTest.Domain.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace Mc2.CrudTest.Domain.ValueObjects
 {
-    public class Email
+    public class Email : ValueObject
     {
         public string Value { get; private set; }
 
-        private Email(string value)
-        {
-            Value = value;
-        }
+        private Email(string value) => Value = value;
 
         public static Email Create(string value)
         {
@@ -24,6 +22,9 @@ namespace Mc2.CrudTest.Domain.ValueObjects
             return new Email(value);
         }
 
-        public override string ToString() => Value;
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
+        }
     }
 }

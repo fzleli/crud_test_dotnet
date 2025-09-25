@@ -1,15 +1,13 @@
-﻿using Mc2.CrudTest.Domain.Exceptions;
+﻿using Mc2.CrudTest.Domain.Common;
+using Mc2.CrudTest.Domain.Exceptions;
 
 namespace Mc2.CrudTest.Domain.ValueObjects
 {
-    public class PhoneNumber
+    public class PhoneNumber : ValueObject
     {
-        public string Value { get; private set; }
+        public ulong Value { get; private set; }
 
-        private PhoneNumber(string value)
-        {
-            Value = value;
-        }
+        private PhoneNumber(ulong value) => Value = value;
 
         public static PhoneNumber Create(string value)
         {
@@ -19,9 +17,20 @@ namespace Mc2.CrudTest.Domain.ValueObjects
             if (!value.StartsWith("+") || value.Length < 10)
                 throw new InvalidPhoneNumberException(value);
 
-            return new PhoneNumber(value);
+            var digits = value.Substring(1).Replace(" ", "").Replace("-", "");
+
+            if (!digits.All(char.IsDigit))
+                throw new InvalidPhoneNumberException(value);
+
+            if (!ulong.TryParse(digits, out var numericValue))
+                throw new InvalidPhoneNumberException(value);
+
+            return new PhoneNumber(numericValue);
         }
 
-        public override string ToString() => Value;
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
+        }
     }
 }
