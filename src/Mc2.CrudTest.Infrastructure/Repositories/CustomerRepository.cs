@@ -40,4 +40,10 @@ public class CustomerRepository : ICustomerRepository
     {
         return !await _context.Customers.Where(c => c.Id != excludeCustomerId).AnyAsync(c => c.Email.Value == email);
     }
+
+    public async Task UpdateAsync(Customer customer)
+    {
+        _context.Customers.Update(customer);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -1,12 +1,13 @@
-﻿using Mc2.CrudTest.Application.Common.Behaviors;
+﻿using FluentValidation;
+using Mc2.CrudTest.Application.Common.Behaviors;
 using Mc2.CrudTest.Application.Common.Interfaces;
 using Mc2.CrudTest.Application.Customers.Commands.CreateCustomer;
+using Mc2.CrudTest.Application.Customers.Commands.UpdateCustomer;
 using Mc2.CrudTest.Infrastructure.Persistence;
 using Mc2.CrudTest.Infrastructure.Repositories;
 using Mc2.CrudTest.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,6 @@ app.UseExceptionHandler(errorApp =>
     });
 });
 
-
 app.MapPost("/api/customers", async (IMediator mediator, [FromBody] CreateCustomerCommand command) =>
 {
     try
@@ -70,6 +70,25 @@ app.MapPost("/api/customers", async (IMediator mediator, [FromBody] CreateCustom
 })
 .WithName("CreateCustomer")
 .WithOpenApi();
+
+app.MapPut("/api/customers/{id}", async (IMediator mediator, Guid id, [FromBody] UpdateCustomerCommand command) =>
+{
+    try
+    {
+        command.Id = id;
+
+        var customer = await mediator.Send(command);
+
+        return Results.Ok(customer); 
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message, statusCode: 400);
+    }
+})
+.WithName("UpdateCustomer")
+.WithOpenApi();
+
 
 app.Run();
 
