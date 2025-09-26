@@ -55,4 +55,9 @@ public class Customer : AggregateRoot<Guid>
 
         AddDomainEvent(new CustomerUpdatedEvent(this));
     }
+
+    public void Delete()
+    {
+        AddDomainEvent(new CustomerDeletedEvent(this));
+    }
 }
