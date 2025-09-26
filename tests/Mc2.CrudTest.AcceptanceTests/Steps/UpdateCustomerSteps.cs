@@ -150,8 +150,8 @@ namespace Mc2.CrudTest.AcceptanceTests.Steps
             _thrownException.Should().BeOfType<DuplicateCustomerException>();
         }
 
-        [Then(@"a NotFoundException should be thrown")]
-        public void ThenANotFoundExceptionShouldBeThrown()
+        [Then(@"a NotFoundException should be thrown while updating a customer")]
+        public void ThenANotFoundExceptionShouldBeThrownWhileUpdatingACustomer()
         {
             _thrownException.Should().BeOfType<NotFoundException>();
         }

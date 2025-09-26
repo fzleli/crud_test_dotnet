@@ -283,7 +283,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.When("I send the update customer command", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 33
-    testRunner.Then("a NotFoundException should be thrown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("a NotFoundException should be thrown while updating a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

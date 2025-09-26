@@ -30,4 +30,4 @@ Scenario: Attempt to update a customer with duplicate personal info
 Scenario: Attempt to update a customer that does not exist
     Given I have an update request for a non-existent customer
     When I send the update customer command
-    Then a NotFoundException should be thrown
+    Then a NotFoundException should be thrown while updating a customer

@@ -2,6 +2,7 @@
 using Mc2.CrudTest.Application.Common.Behaviors;
 using Mc2.CrudTest.Application.Common.Interfaces;
 using Mc2.CrudTest.Application.Customers.Commands.CreateCustomer;
+using Mc2.CrudTest.Application.Customers.Commands.DeleteCustomer;
 using Mc2.CrudTest.Application.Customers.Commands.UpdateCustomer;
 using Mc2.CrudTest.Infrastructure.Persistence;
 using Mc2.CrudTest.Infrastructure.Repositories;
@@ -56,11 +57,11 @@ app.UseExceptionHandler(errorApp =>
     });
 });
 
-app.MapPost("/api/customers", async (IMediator mediator, [FromBody] CreateCustomerCommand command) =>
+app.MapPost("/api/customers", async (ISender sender, [FromBody] CreateCustomerCommand command) =>
 {
     try
     {
-        var customer = await mediator.Send(command);
+        var customer = await sender.Send(command);
         return Results.Created($"/api/customers/{customer.Id}", customer);
     }
     catch (Exception ex)
@@ -71,15 +72,15 @@ app.MapPost("/api/customers", async (IMediator mediator, [FromBody] CreateCustom
 .WithName("CreateCustomer")
 .WithOpenApi();
 
-app.MapPut("/api/customers/{id}", async (IMediator mediator, Guid id, [FromBody] UpdateCustomerCommand command) =>
+app.MapPut("/api/customers/{id}", async (ISender sender, Guid id, [FromBody] UpdateCustomerCommand command) =>
 {
     try
     {
         command.Id = id;
 
-        var customer = await mediator.Send(command);
+        var customer = await sender.Send(command);
 
-        return Results.Ok(customer); 
+        return Results.Ok(customer);
     }
     catch (Exception ex)
     {
@@ -88,6 +89,23 @@ app.MapPut("/api/customers/{id}", async (IMediator mediator, Guid id, [FromBody]
 })
 .WithName("UpdateCustomer")
 .WithOpenApi();
+
+app.MapDelete("/api/customers/{id:guid}", async (Guid id, ISender sender) =>
+{
+    var command = new DeleteCustomerCommand(id);
+
+    try
+    {
+        await sender.Send(command);
+        return Results.NoContent();
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(ex.Message, statusCode: 400);
+    }
+})
+.WithName("DeleteCustomer")
+.WithTags("Customers");
 
 
 app.Run();
