@@ -1,9 +1,12 @@
-﻿using FluentValidation;
+﻿using Application.Common.Exceptions;
+using FluentValidation;
 using Mc2.CrudTest.Application.Common.Behaviors;
 using Mc2.CrudTest.Application.Common.Interfaces;
 using Mc2.CrudTest.Application.Customers.Commands.CreateCustomer;
 using Mc2.CrudTest.Application.Customers.Commands.DeleteCustomer;
 using Mc2.CrudTest.Application.Customers.Commands.UpdateCustomer;
+using Mc2.CrudTest.Application.Customers.Queries.GetCustomerById;
+using Mc2.CrudTest.Domain.Entities;
 using Mc2.CrudTest.Infrastructure.Persistence;
 using Mc2.CrudTest.Infrastructure.Repositories;
 using Mc2.CrudTest.Infrastructure.Services;
@@ -70,7 +73,7 @@ app.MapPost("/api/customers", async (ISender sender, [FromBody] CreateCustomerCo
     }
 })
 .WithName("CreateCustomer")
-.WithOpenApi();
+.WithTags("Customers");
 
 app.MapPut("/api/customers/{id}", async (ISender sender, Guid id, [FromBody] UpdateCustomerCommand command) =>
 {
@@ -88,7 +91,7 @@ app.MapPut("/api/customers/{id}", async (ISender sender, Guid id, [FromBody] Upd
     }
 })
 .WithName("UpdateCustomer")
-.WithOpenApi();
+.WithTags("Customers");
 
 app.MapDelete("/api/customers/{id:guid}", async (Guid id, ISender sender) =>
 {
@@ -107,6 +110,20 @@ app.MapDelete("/api/customers/{id:guid}", async (Guid id, ISender sender) =>
 .WithName("DeleteCustomer")
 .WithTags("Customers");
 
+app.MapGet("/api/customers/{id:guid}", async (Guid id, ISender sender) =>
+{
+    try
+    {
+        var customer = await sender.Send(new GetCustomerByIdQuery(id));
+        return Results.Ok(customer);
+    }
+    catch (Exception ex)
+    {
+        return Results.NotFound(new { message = ex.Message });
+    }
+})
+.WithName("GetCustomer")
+.WithTags("Customers");
 
 app.Run();
 
