@@ -20,23 +20,23 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Delete Customer")]
-    public partial class DeleteCustomerFeature
+    [NUnit.Framework.DescriptionAttribute("Get Customer")]
+    public partial class GetCustomerFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "DeleteCustomer.feature"
+#line 1 "GetCustomerById.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Delete Customer", "    As an operator\r\n    I want to delete an existing customer\r\n    So that I can " +
-                    "remove their information from the system", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Get Customer", "    As an operator\r\n    I want to retrieve customer details\r\n    So that I can vi" +
+                    "ew their information", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -75,12 +75,12 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Successfully delete an existing customer")]
-        public virtual void SuccessfullyDeleteAnExistingCustomer()
+        [NUnit.Framework.DescriptionAttribute("Successfully retrieve an existing customer")]
+        public virtual void SuccessfullyRetrieveAnExistingCustomer()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successfully delete an existing customer", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successfully retrieve an existing customer", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -102,29 +102,28 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
             {
                 this.ScenarioStart();
 #line 7
-        testRunner.Given("a customer exists in the system with ID \"11111111-1111-1111-1111-111111111111\" wh" +
-                        "ile deleting a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given("a customer exists in the system with ID \"11111111-1111-1111-1111-111111111111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-        testRunner.When("I send the delete customer command for ID \"11111111-1111-1111-1111-111111111111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("I send the get customer query for ID \"11111111-1111-1111-1111-111111111111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
-        testRunner.Then("the customer should be removed successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("the customer details should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
-        testRunner.And("a CustomerDeletedEvent should be raised", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("no event should be saved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Attempt to delete a non-existing customer")]
-        public virtual void AttemptToDeleteANon_ExistingCustomer()
+        [NUnit.Framework.DescriptionAttribute("Attempt to retrieve a non-existing customer")]
+        public virtual void AttemptToRetrieveANon_ExistingCustomer()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempt to delete a non-existing customer", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempt to retrieve a non-existing customer", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 12
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -146,55 +145,16 @@ namespace Mc2.CrudTest.AcceptanceTests.Features
             {
                 this.ScenarioStart();
 #line 13
-        testRunner.Given("no customer exists in the system with ID \"22222222-2222-2222-2222-222222222222\" w" +
-                        "hile deleting a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+        testRunner.Given("no customer exists in the system with ID \"22222222-2222-2222-2222-222222222222\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 14
-        testRunner.When("I send the delete customer command for ID \"22222222-2222-2222-2222-222222222222\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.When("I send the get customer query for ID \"22222222-2222-2222-2222-222222222222\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
-        testRunner.Then("a NotFoundException should be thrown while deleting a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("a NotFoundException should be thrown for get customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Attempt to delete a customer already deleted")]
-        public virtual void AttemptToDeleteACustomerAlreadyDeleted()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Attempt to delete a customer already deleted", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 18
-        testRunner.Given("a customer exists in the system with ID \"33333333-3333-3333-3333-333333333333\" an" +
-                        "d is already deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 19
-        testRunner.When("I send the delete customer command for ID \"33333333-3333-3333-3333-333333333333\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 20
-        testRunner.Then("a NotFoundException should be thrown while deleting a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 16
+        testRunner.And("no event should be saved", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

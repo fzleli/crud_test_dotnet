@@ -17,7 +17,7 @@ public class DeleteCustomerSteps
     private Customer _existingCustomer;
     private Exception _thrownException;
 
-    [Given(@"a customer exists in the system with ID ""(.*)""")]
+    [Given(@"a customer exists in the system with ID ""(.*)"" while deleting a customer")]
     public void GivenACustomerExists(Guid id)
     {
         _existingCustomer = Customer.Create(
@@ -29,7 +29,7 @@ public class DeleteCustomerSteps
             .ReturnsAsync(_existingCustomer);
     }
 
-    [Given(@"no customer exists in the system with ID ""(.*)""")]
+    [Given(@"no customer exists in the system with ID ""(.*)"" while deleting a customer")]
     public void GivenNoCustomerExists(Guid id)
     {
         _customerRepositoryMock
@@ -78,8 +78,8 @@ public class DeleteCustomerSteps
         _eventStoreMock.Verify(e => e.SaveEventAsync(It.IsAny<CustomerDeletedEvent>()), Times.Once);
     }
 
-    [Then(@"a NotFoundException should be thrown")]
-    public void ThenNotFoundExceptionThrown()
+    [Then(@"a NotFoundException should be thrown while deleting a customer")]
+    public void ThenNotFoundExceptionThrownWhileDeletingACustomer()
     {
         _thrownException.Should().BeOfType<NotFoundException>();
     }
