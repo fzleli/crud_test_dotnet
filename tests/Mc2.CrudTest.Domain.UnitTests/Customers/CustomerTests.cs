@@ -69,5 +69,27 @@ namespace Mc2.CrudTest.Domain.UnitTests.Customers
             updatedEvent.Customer.FirstName.Should().Be(updatedFirstName);
             updatedEvent.Customer.LastName.Should().Be(updatedLastName);
         }
+
+        [Fact]
+        public void Delete_ShouldRaiseCustomerDeletedEvent()
+        {
+            // Arrange
+            var firstName = "Amir";
+            var lastName = "Moradi";
+            var dob = new DateTime(1990, 5, 12);
+            var phone = "+989123456789";
+            var email = "test@example.com";
+            var bankAccount = "8205401026800208";
+            var customer = Customer.Create(firstName, lastName, dob, phone, email, bankAccount);
+
+            // Act
+            customer.Delete();
+
+            // Assert
+            var domainEvents = customer.DomainEvents;
+            domainEvents.Should().HaveCount(2);
+            domainEvents.First().Should().BeOfType<CustomerCreatedEvent>();
+            domainEvents.Last().Should().BeOfType<CustomerDeletedEvent>();
+        }
     }
 }
