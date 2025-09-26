@@ -9,11 +9,11 @@ public class Customer : AggregateRoot<Guid>
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public DateTime DateOfBirth { get; private set; }
-    public PhoneNumber PhoneNumber { get; private set; } 
-    public Email Email { get; private set; } 
-    public BankAccountNumber BankAccountNumber { get; private set; } 
+    public PhoneNumber PhoneNumber { get; private set; }
+    public Email Email { get; private set; }
+    public BankAccountNumber BankAccountNumber { get; private set; }
 
-    private Customer() { } 
+    private Customer() { }
 
     public static Customer Create(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
     {
@@ -33,4 +33,26 @@ public class Customer : AggregateRoot<Guid>
         return customer;
     }
 
+    public void Update(string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber)
+    {
+        if (firstName is not null)
+            FirstName = firstName;
+
+        if (lastName is not null)
+            LastName = lastName;
+
+        if (dateOfBirth != default)
+            DateOfBirth = dateOfBirth;
+
+        if (phoneNumber is not null)
+            PhoneNumber = PhoneNumber.Create(phoneNumber);
+
+        if (email is not null)
+            Email = Email.Create(email);
+
+        if (bankAccountNumber is not null)
+            BankAccountNumber = BankAccountNumber.Create(bankAccountNumber);
+
+        AddDomainEvent(new CustomerUpdatedEvent(this));
+    }
 }
