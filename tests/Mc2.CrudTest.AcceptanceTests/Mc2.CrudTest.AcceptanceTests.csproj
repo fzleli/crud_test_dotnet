@@ -7,6 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Drivers\**" />
+      <Compile Remove="Hooks\**" />
+      <EmbeddedResource Remove="Drivers\**" />
+      <EmbeddedResource Remove="Hooks\**" />
+      <None Remove="Drivers\**" />
+      <None Remove="Hooks\**" />
+      <SpecFlowFeatureFiles Remove="Drivers\**" />
+      <SpecFlowFeatureFiles Remove="Hooks\**" />
+      <SpecFlowObsoleteCodeBehindFiles Remove="Drivers\**" />
+      <SpecFlowObsoleteCodeBehindFiles Remove="Hooks\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Using Include="TechTalk.SpecFlow" />
     </ItemGroup>
 
@@ -21,10 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Drivers\" />
       <Folder Include="Features\" />
-      <Folder Include="Hooks\" />
-      <Folder Include="Steps\" />
     </ItemGroup>
 
     <ItemGroup>
