@@ -9,7 +9,6 @@ namespace Mc2.CrudTest.Application.UnitTests.Customers.Commands.DeleteCustomer;
 public class DeleteCustomerCommandHandlerTests
 {
     private readonly Mock<ICustomerRepository> _customerRepositoryMock;
-    private readonly Mock<IPhoneNumberValidator> _phoneValidatorMock;
     private readonly Mock<IEventStore> _eventStoreMock;
     private readonly DeleteCustomerCommandHandler _handler;
 
