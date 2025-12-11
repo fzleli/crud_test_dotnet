@@ -1,47 +1,49 @@
-# CRUD Code Test 
+# CRUD Code Test
 
-Please read each note very carefully!
-Feel free to add/change the project structure to a clean architecture to your view.
-and if you are not able to work on the FrontEnd project, you can add a Swagger UI
-in a new Front project.
+This is a .NET application for managing customer data using DDD, TDD, BDD, Clean Architecture, and CQRS with Event Sourcing.
 
-Create a simple CRUD application with .NET that implements the below model:
-```
-Customer {
-	FirstName
-	LastName
-	DateOfBirth
-	PhoneNumber
-	Email
-	BankAccountNumber
-}
-```
-## Practices and patterns:
+## Prerequisites
+- .NET 7+ SDK
+- Docker (for PostgreSQL database)
+- Entity Framework Core CLI tools: Install with `dotnet tool install --global dotnet-ef`
 
-- [TDD](https://docs.microsoft.com/en-us/visualstudio/test/quick-start-test-driven-development-with-test-explorer?view=vs-2022)
-- [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development)
-- [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
-- [Clean architecture](https://github.com/jasontaylordev/CleanArchitecture)
-- [CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation#Command_query_responsibility_separation) pattern ([Event sourcing](https://en.wikipedia.org/wiki/Domain-driven_design#Event_sourcing)).
-- Clean git commits that show your work progress, each commit must provide your decision making process for each change or selection.
+## How to Run the Project
+Follow these steps to set up and run the application:
 
-### Validations
+1. **Start the Database with Docker**:
+   Run the following command from the project root to start PostgreSQL:
+`docker compose up -d`
 
-- During Create; validate the phone number to be a valid *mobile* number only (Please use [Google LibPhoneNumber](https://github.com/google/libphonenumber) to validate number at the backend).
+2. **Apply Database Migrations**:
+`dotnet ef migrations add InitialCreate`
+`dotnet ef database update`
 
-- A Valid email and a valid bank account number must be checked before submitting the form.
+4. **Build and Run the Application**:
+`dotnet build`
+`dotnet run --project src/Presentation`
 
-- Customers must be unique in the database: By `Firstname`, `Lastname`, and `DateOfBirth`.
+5. **Access the Application**:
+The API will be available at:
+- http://localhost:port
 
-- Email must be unique in the database.
+5. **Test with Swagger**:
+Open your browser and navigate to:
+- http://localhost:port/swagger/index.html
 
-### Storage
+## Available Endpoints
+- POST /api/customers - Create a new customer
+- PUT /api/customers/{id} - Update an existing customer
+- DELETE /api/customers/{id} - Delete a customer
+- GET /api/customers/{id} - Get customer details
 
-- Store the phone number in a database with minimized space storage (choose `varchar`/`string`, or `ulong` whichever store less space).
+## Running Tests
+- Run unit tests: `dotnet test`
+- BDD tests are included for all customer operations
 
-### Delivery
-- Please clone this repository in a new GitHub repository in private mode and share with ID: `mason-chase` in private mode on github.com, make sure you do not erase my commits and then create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) (code review).
-
-## Nice to do:
-- Blazor Web.
-- Docker-compose project that loads database service automatically which `docker-compose up`
+## Project Structure
+- src/Domain - Entities, Events, Exceptions
+- src/Application - CQRS Command & Query Handlers, Validation
+- src/Infrastructure - EF Core, Repositories, EventStore
+- src/Presentation - API Endpoints
+- tests/UnitTests - TDD tests
+- tests/AcceptanceTests - BDD tests
